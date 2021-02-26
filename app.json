@@ -1,5 +1,5 @@
 {
-  "name": "connect4htwgws2021",
+  "name": "stratego2021",
   "description": "Seed project to show how Silhouette can be implemented into a Play Framework application.",
   "keywords": [
     "Play",
@@ -11,7 +11,7 @@
   "env": {
     "BUILDPACK_URL": "https://github.com/heroku/heroku-buildpack-scala.git",
     "PLAY_CONF_FILE": "application.prod.conf",
-    "PLAY_APP_SECRET": "thisismysecretlmaohahahaha",
+    "PLAY_APP_SECRET": "key123",
     "FACEBOOK_CLIENT_ID": {
       "description": "The Facebook OAuth2 client ID",
       "required": false
