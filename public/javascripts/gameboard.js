@@ -258,7 +258,7 @@ function loadJson() {
 }
 
 function connectWebSocket(){
-    var webSocket = new WebSocket("ws://localhost:9000/websocket");
+    var webSocket = new WebSocket("wss://stratego2021.herokuapp.com/websocket");
 
     webSocket.onopen = () => {
         console.log("Connected to WebSocket")
