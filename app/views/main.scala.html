@@ -1,0 +1,118 @@
+@import play.api.i18n.Messages
+@import play.api.mvc.RequestHeader
+@import play.twirl.api.Html
+@import org.webjars.play.WebJarsUtil
+@import controllers.AssetsFinder
+@import views.html.helper._
+
+@(title: String, user: Option[models.User] = None)(content: Html)(implicit request: RequestHeader, messages: Messages, assets: AssetsFinder, webJarsUtil: WebJarsUtil)
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" type="image/png" href="@assets.path("images/icon.png")">
+        <title>@title</title>
+        <link @{CSPNonce.attr} href="//fonts.googleapis.com/css?family=Roboto|Montserrat:400,700|Open+Sans:400,300,600" rel="stylesheet">
+        <link @{CSPNonce.attr} href="//cdnjs.cloudflare.com/ajax/libs/ionicons/1.5.2/css/ionicons.min.css" rel="stylesheet">
+        @webJarsUtil.locate("bootstrap.min.css").css(CSPNonce.attrMap)
+        <link @{CSPNonce.attr} rel="stylesheet" href="@assets.path("styles/main.css")">
+            <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+            <!--[if lt IE 9]>
+            <script @{CSPNonce.attr} src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script @{CSPNonce.attr} src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+            <![endif]-->
+
+        <!-- bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+
+            <!-- jQuery first, then Tether, then Bootstrap JS. -->
+        <script @{CSPNonce.attr} src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+        <script @{CSPNonce.attr} src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+
+            <!-- styles -->
+        <link rel="stylesheet" media="screen" href="@assets.path("styles/stratego.css")">
+        <link rel="stylesheet" media="screen" href="@assets.path("styles/gameboard.css")">
+        <link rel="stylesheet" media="screen" href="@assets.path("styles/menu.css")">
+
+            <!-- fontawesome icons -->
+        <link href="@assets.path("fontawesome-free-5.15.1-web/css/all.css")" rel="stylesheet" media="screen">
+
+            <!-- slider -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick-theme.css">
+
+        <script @{CSPNonce.attr} type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+        <script @{CSPNonce.attr} type="text/javascript" src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
+
+            <!-- VUE -->
+        <script @{CSPNonce.attr} src="@assets.path("javascripts/Vue.js")" ></script>
+        <script @{CSPNonce.attr} src="@assets.path("javascripts/strategoVue.js")" ></script>
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-3">
+                <div class="container-fluid">
+                    <a href="#" class="navbar-brand mr-3">Stratego</a>
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <div class="navbar-nav">
+                            <a href="@controllers.routes.ApplicationController.index" class="nav-item nav-link">Home</a>
+                            <a href="@controllers.routes.StrategoController.aboutpage" class="nav-item nav-link">About</a>
+                            <a href="@controllers.routes.StrategoController.menupage"class="nav-item nav-link">Game</a>
+                        </div>
+                    </div>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup2">
+                        <div class="navbar-nav">
+                        @user.map { u =>
+                        <a class="nav-link" href="@controllers.routes.ApplicationController.index">@u.name</a>
+                        @if(u.loginInfo.providerID == com.mohiva.play.silhouette.impl.providers.CredentialsProvider.ID) {
+                            <a class="nav-item nav-link" href="@controllers.routes.ChangePasswordController.view">@messages("change.password")</a>
+                        }
+                        <a class="nav-item nav-link" href="@controllers.routes.ApplicationController.signOut">@messages("sign.out")</a>
+                        }.getOrElse {
+                            <a class="nav-item nav-link" href="@controllers.routes.SignInController.view">@messages("sign.in")</a>
+                            <a class="nav-item nav-link" href="@controllers.routes.SignUpController.view">@messages("sign.up")</a>
+                        }
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main class="container">
+            <div class="starter-template row">
+                @request.flash.get("error").map { msg =>
+                    <div class="col-md-6 col-md-offset-3 alert alert-danger">
+                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                        <strong>@messages("error")</strong> @msg
+                    </div>
+                }
+                @request.flash.get("info").map { msg =>
+                    <div class="col-md-6 col-md-offset-3 alert alert-info">
+                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                        <strong>@messages("info")</strong> @msg
+                    </div>
+                }
+                @request.flash.get("success").map { msg =>
+                    <div class="col-md-6 col-md-offset-3 alert alert-success">
+                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                        <strong>@messages("success")</strong> @msg
+                    </div>
+                }
+                @content
+            </div>
+        </main>
+        @webJarsUtil.locate("jquery.min.js").script(CSPNonce.attrMap)
+        @webJarsUtil.locate("bootstrap.min.js").script(CSPNonce.attrMap)
+        <script @{CSPNonce.attr} src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js"></script>
+        <script @{CSPNonce.attr} src="@assets.path("javascripts/zxcvbnShim.js")"></script>
+
+            <!-- own JavaScript files -->
+        <script @{CSPNonce.attr} src="@assets.path("javascripts/form.js")"></script>
+    </body>
+</html>

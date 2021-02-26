@@ -1,0 +1,50 @@
+@import play.api.i18n.Messages
+@import play.api.mvc.RequestHeader
+@import org.webjars.play.WebJarsUtil
+@import controllers.AssetsFinder
+@import play.api.data._
+@import forms.TotpSetupForm.Data
+@import com.mohiva.play.silhouette.impl.providers.GoogleTotpCredentials
+@import com.mohiva.play.silhouette.impl.providers.GoogleTotpInfo
+@import views.html.helper.CSPNonce
+
+
+@this()(implicit webJarsUtil: WebJarsUtil, assets: AssetsFinder)
+@(user: models.User, totpInfoOpt: Option[GoogleTotpInfo], totpDataOpt: Option[(Form[Data], GoogleTotpCredentials)] = None)(implicit request: RequestHeader, messages: Messages)
+
+@implicitFieldConstructor = @{
+    b4.vertical.fieldConstructor()
+}
+@main("Menu", Some(user)) {
+    <!-- ===== Menu (using bootstrap) ===== -->
+    <div class="menu">
+        <div class="form-newGame">
+            <form action="/players" method="get" id="form">
+
+                <img class="menuLogo" src="@assets.path("images/logo.png")" alt="Logo">
+
+                <div class="nameWrapper">
+                    <input type="text" id="inputPlayer1" class="nameInput form-control" placeholder="Player 1" />
+                    <i class="fas fa-check-circle"></i>
+                    <i class="fas fa-exclamation-circle"></i>
+                    <small>Error message</small>
+                </div>
+
+                <div class="nameWrapper">
+                    <input type="text" id="inputPlayer2" class="nameInput form-control error" placeholder="Player 2" />
+                    <i class="fas fa-check-circle"></i>
+                    <i class="fas fa-exclamation-circle"></i>
+                    <small>Error message</small>
+                </div>
+
+                <button type="submit" class="menuButton newGameButton ">New Game</button>
+            </form>
+
+            <p class="or">---- or ----</p>
+
+            <button class="menuButton" id="loadButton">Load Game</button>
+
+            <p class="mt-5 mb-3 copy">&#169; 2020 by Walter Voetsch Cortes and Axel Schwarz</p>
+        </div>
+    </div>
+}

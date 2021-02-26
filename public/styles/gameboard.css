@@ -1,0 +1,74 @@
+.game__conatiner{
+    margin-top: calc(var(--header-height) + 1rem);
+}
+
+.gameboard__container{
+    display: flex;
+    justify-content: center;
+    margin-top: var(--mb-2);
+}
+
+.cell{
+    width: 44px;
+    height: 44px;
+    text-align: center;
+    vertical-align: middle;
+    margin: 2px;
+    color: #fff;
+}
+.piece{
+    height: 30px;
+    display: block;
+    margin: auto;
+}
+.piece img{
+    filter: invert(10%) sepia(7%) saturate(5987%) hue-rotate(339deg) brightness(96%) contrast(100%);
+}
+.cells_red{
+    background-color: var(--red-color);
+    cursor: pointer;
+}
+.cells_blue{
+    background-color: var(--blue-color);
+    cursor: pointer;
+}
+.cells__green{
+    background-color: var(--green-color);
+}
+.cells_blue:hover{
+    background-color: var(--background-color);
+    transition: all 0.1s ease-in;
+    font-size:130%;
+}
+.cells_red:hover{
+    background-color: var(--background-color);
+    transition: all 0.1s ease-in;
+    font-size:130%;
+}
+.selectedCell{
+    background-color: var(--background-color);
+}
+
+table {
+    border-collapse: collapse;
+}
+table td {
+    border: 2px solid var(--second-color);
+}
+table tr:first-child td {
+    border-top: 0;
+}
+table tr td:first-child {
+    border-left: 0;
+}
+table tr:last-child td {
+    border-bottom: 0;
+}
+table tr td:last-child {
+    border-right: 0;
+}
+
+.info__container{
+    text-align: center;
+    margin-top: var(--mb-2);
+}

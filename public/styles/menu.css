@@ -1,0 +1,139 @@
+
+.menu {
+    background: url("../images/menu3.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+    height: 100%;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    text-align: center;
+    justify-content: center;
+}
+
+.form-newGame {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+}
+
+.form-newGame .form-control {
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    font-size: 16px;
+}
+.form-newGame .form-control:focus {
+    border-color: var(--first-color);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px var(--first-color);
+    outline: 0 none;
+}
+
+.nameWrapper.success input{
+    border-color: var(--green-color);
+}
+.nameWrapper.success:focus {
+    border-color: 4px var(--green-color);
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.075) inset, 0 0 8px var(--green-color);
+    outline: 0 none;
+}
+.nameWrapper.error input{
+    border-color: var(--red-color);
+}
+.nameWrapper.error:focus {
+    border-color: 4px var(--red-color);
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.075) inset, 0 0 8px var(--red-color);
+    outline: 0 none;
+}
+.nameWrapper.success i.fa-check-circle{
+    visibility: visible;
+    color: var(--green-color);
+}
+.nameWrapper.error i.fa-exclamation-circle{
+    visibility: visible;
+    color: var(--red-color);
+}
+.nameWrapper.error small{
+    visibility: visible;
+    color: var(--red-color);
+}
+
+.form-newGame input[type="text"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.nameWrapper{
+    position: relative;
+}
+.nameWrapper i {
+    visibility: hidden;
+    position: absolute;
+    top: 4px;
+    right: 4px;
+}
+.nameWrapper small{
+    visibility: hidden;
+    position: absolute;
+    bottom: 2px;
+    right: 4px;
+}
+
+.menuLogo{
+    margin-bottom: var(--mb-3);
+}
+
+#inputPlayer1{
+    color: var(--second-color);
+    margin-bottom: var(--mb-1);
+}
+#inputPlayer2{
+    color: var(--second-color);
+}
+.newGameButton{
+    margin-top: var(--mb-2);
+
+}
+.menuButton{
+    background-color: var(--second-color);
+    border: none;
+    width: 100%;
+    color: #fff;
+    height: 46px;
+    padding:10px;
+    border-radius: .3rem;
+    cursor: pointer;
+}
+.menuButton:hover{
+    background-color: var(--first-color);
+}
+.menuButton:focus {
+    border-color: var(--first-color);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px var(--first-color);
+    outline: 0 none;
+    background-color: var(--first-color);
+}
+.menuButton:active{
+    background-color: var(--first-color);
+}
+
+.or{
+    margin-top: var(--mb-4);
+    margin-bottom: var(--mb-4);
+    color: #fff;
+    font-weight: 900;
+}
+.copy{
+    font-size: 0.6rem;
+    color: var(--second-color);
+    margin-top: var(--mb-1);
+}
+

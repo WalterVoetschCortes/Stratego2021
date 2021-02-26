@@ -1,0 +1,576 @@
+@import play.api.i18n.Messages
+@import play.api.mvc.RequestHeader
+@import org.webjars.play.WebJarsUtil
+@import controllers.AssetsFinder
+@import play.api.data._
+@import forms.TotpSetupForm.Data
+@import com.mohiva.play.silhouette.impl.providers.GoogleTotpCredentials
+@import com.mohiva.play.silhouette.impl.providers.GoogleTotpInfo
+@import views.html.helper.CSPNonce
+
+
+@this()(implicit webJarsUtil: WebJarsUtil, assets: AssetsFinder)
+@(user: models.User, totpInfoOpt: Option[GoogleTotpInfo], totpDataOpt: Option[(Form[Data], GoogleTotpCredentials)] = None)(implicit request: RequestHeader, messages: Messages)
+
+@implicitFieldConstructor = @{
+    b4.vertical.fieldConstructor()
+}
+@main("Welcome to Stratego", Some(user)) {
+    <!-- ===== HEADER ===== -->
+    <header class="l-header">
+        <nav class="navbar navbar-expand-sm bd-grid active_nav">
+
+            <a href="#" class="nav__logo navbar-brand"><img src="@assets.path("images/logo.png")" alt="StrategoLogo"></a>
+
+            <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarMenu">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a href="#home" class="nav-link nav__link active">Home</a></li>
+                    <li class="nav-item"><a href="#about" class="nav-link nav__link">About</a></li>
+                    <li class="nav-item"><a href="#gameplay" class="nav-link nav__link ">Gameplay</a></li>
+                    <li class="nav-item"><a href="#characters" class="nav-link nav__link">Characters</a></li>
+                    <li class="nav-item"><a href="#development" class="nav-link nav__link">Development</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class ="l-main">
+
+            <!-- ===== HOME ===== -->
+        <section class="home bd-grid" id="home">
+
+            <div class="home__img">
+                <img src="@assets.path("images/stratego.jpg")" alt="StrategoLogo">
+            </div>
+            <div class="home__data">
+                <a href="@controllers.routes.StrategoController.matchfieldpage" class="button">Play</a>
+            </div>
+            <div class="home__social">
+                <a href="https://github.com/BenjaminMannsdoerfer/Stratego" target="_blank" class="home__social-icon-left home__social-icon"><i class="fab fa-github"></i>Desktop-App</a>
+                <a href="https://github.com/WalterVoetschCortes/de.htwg.wt.StrategoInScala" target="_blank" class="home__social-icon"><i class="fab fa-github"></i>Web-App</a>
+            </div>
+
+        </section>
+
+            <!-- ===== ABOUT ===== -->
+        <section class="about section" id="about">
+            <h2 class="section-title">About</h2>
+
+            <div class="about__container bd-grid">
+                <div class="about__img">
+                    <img src="@assets.path("images/cover.jpg")" alt="StrategoCover">
+                </div>
+
+                <div>
+                    <h2 class="about__subtitle">Welcome to Stratego</h2>
+                    <p class="about__text">
+                        A little info about the game STRATEGO. This game is part of our project for our class Web Technologies at the
+                        University of Applied Science HTWG Konstanz and is a continuation of the project in software engineering.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+            <!-- ===== GAMEPLAY ===== -->
+        <section class="gameplay section" id="gameplay">
+            <h2 class="section-title">Gameplay</h2>
+
+            <div class="gameplay__container bd-grid">
+                <div>
+                    <p class="gameplay__text">
+                        Stratego is a strategy board game for two players. Each player has 40 pieces representing different characters.
+                        <br><br>
+                        We modified the game a little bit so you can walk with all characters (except flag and bomb) just one field up, down, to the right or to the left. You also can attack the oppenents with your figures. To win the game you have to find and attack the flag of your enemy.
+                        <br><br>Important rules:
+                        <br><br>
+                <ul>
+                    <li>Flag is the most important figure</li>
+                    <li>Miner and Bomb: only the miner can defuse the Bomb</li>
+                    <li>Every other figure loses against the Bomb</li>
+                    <li>Spy and Marshal: only Spy can beat the Marshal except the bomb</li>
+                    <li>Flag and Bomb can't be moved</li>
+                </ul>
+                </div>
+            </div>
+        </section>
+
+            <!-- ===== CHARACTERS ===== -->
+        <section class="characters section" id="characters">
+            <h2 class="section-title">Characters</h2>
+            <div class="characters__container bd-grid">
+
+                    <!-- Slide -->
+                <div class="slide-container">
+
+                    <div class="wrapper">
+                        <div class="character-card one">
+                            <div class="character-card__image character-card__image--one">
+                                <img src="@assets.path("images/character-bomb.svg")" alt="bomb">
+                            </div>
+                            <div class="character-card__level character-card__level--one">Rank B</div>
+                            <div class="character-card__unit-name">Bomb</div>
+                            <div class="character-card__unit-description">
+                                <p>
+                                    Bomb bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla.
+                                </p>
+                            </div>
+
+                            <div class="character-card__unit-stats character-card__unit-stats--one clearfix">
+                                <div class="one-third">
+                                    <div class="stat"><i class="fas fa-thumbs-down"></i></div>
+                                    <div class="stat-value">Moveable?</div>
+                                </div>
+
+                                <div class="one-third">
+                                    <div class="stat"><i class="fas fa-info-circle"></i></div>
+                                    <div class="stat-value">Info</div>
+                                </div>
+
+                                <div class="one-third no-border">
+                                    <div class="stat">&#x1F4A3;</div>
+                                    <div class="stat-value">Icon</div>
+                                </div>
+
+                            </div>
+
+                        </div> <!-- end character-card one-->
+                    </div> <!-- end wrapper -->
+
+                    <div class="wrapper">
+                        <div class="character-card two">
+                            <div class="character-card__image character-card__image--two">
+                                <img src="@assets.path("images/character-marshal.svg")" alt="marshal">
+                            </div>
+                            <div class="character-card__level character-card__level--two">Rank 10</div>
+                            <div class="character-card__unit-name">Marshal</div>
+                            <div class="character-card__unit-description">
+                                <p>
+                                    Marshal bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla.
+                                </p>
+                            </div>
+
+                            <div class="character-card__unit-stats character-card__unit-stats--one clearfix">
+                                <div class="one-third">
+                                    <div class="stat"><i class="fas fa-thumbs-up"></i></div>
+                                    <div class="stat-value">Moveable?</div>
+                                </div>
+
+                                <div class="one-third">
+                                    <div class="stat"><i class="fas fa-info-circle"></i></div>
+                                    <div class="stat-value">Info</div>
+                                </div>
+
+                                <div class="one-third no-border">
+                                    <div class="stat">&#x1F482;</div>
+                                    <div class="stat-value">Icon</div>
+                                </div>
+
+                            </div>
+                        </div> <!-- end character-card two-->
+                    </div> <!-- end wrapper -->
+
+                    <div class="wrapper">
+                        <div class="character-card three">
+                            <div class="character-card__image character-card__image--three">
+                                <img src="@assets.path("images/character-general.svg")" alt="general">
+                            </div>
+                            <div class="character-card__level character-card__level--three">Rank 9</div>
+                            <div class="character-card__unit-name">General</div>
+                            <div class="character-card__unit-description">
+                                <p>
+                                    General bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla.
+                                </p>
+                            </div>
+
+                            <div class="character-card__unit-stats character-card__unit-stats--one clearfix">
+                                <div class="one-third">
+                                    <div class="stat"><i class="fas fa-thumbs-up"></i></div>
+                                    <div class="stat-value">Moveable?</div>
+                                </div>
+
+                                <div class="one-third">
+                                    <div class="stat"><i class="fas fa-info-circle"></i></div>
+                                    <div class="stat-value">Info</div>
+                                </div>
+
+                                <div class="one-third no-border">
+                                    <div class="stat">9</div>
+                                    <div class="stat-value">Icon</div>
+                                </div>
+
+                            </div>
+
+                        </div> <!-- end character-card three-->
+                    </div> <!-- end wrapper -->
+
+                    <div class="wrapper">
+                        <div class="character-card four">
+                            <div class="character-card__image character-card__image--four">
+                                <img src="@assets.path("images/character-colonel.svg")" alt="colonel">
+                            </div>
+                            <div class="character-card__level character-card__level--four">Rank 8</div>
+                            <div class="character-card__unit-name">Colonel</div>
+                            <div class="character-card__unit-description">
+                                <p>
+                                    Colonel bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla.
+                                </p>
+                            </div>
+
+                            <div class="character-card__unit-stats character-card__unit-stats--one clearfix">
+                                <div class="one-third">
+                                    <div class="stat"><i class="fas fa-thumbs-up"></i></div>
+                                    <div class="stat-value">Moveable?</div>
+                                </div>
+
+                                <div class="one-third">
+                                    <div class="stat"><i class="fas fa-info-circle"></i></div>
+                                    <div class="stat-value">Info</div>
+                                </div>
+
+                                <div class="one-third no-border">
+                                    <div class="stat">8</div>
+                                    <div class="stat-value">Icon</div>
+                                </div>
+
+                            </div>
+
+                        </div> <!-- end character-card four-->
+                    </div> <!-- end wrapper -->
+
+                    <div class="wrapper">
+                        <div class="character-card five">
+                            <div class="character-card__image character-card__image--five">
+                                <img src="@assets.path("images/character-major.svg")" alt="major">
+                            </div>
+                            <div class="character-card__level character-card__level--four">Rank 7</div>
+                            <div class="character-card__unit-name">Major</div>
+                            <div class="character-card__unit-description">
+                                <p>
+                                    Major bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla.
+                                </p>
+                            </div>
+
+                            <div class="character-card__unit-stats character-card__unit-stats--one clearfix">
+                                <div class="one-third">
+                                    <div class="stat"><i class="fas fa-thumbs-up"></i></div>
+                                    <div class="stat-value">Moveable?</div>
+                                </div>
+
+                                <div class="one-third">
+                                    <div class="stat"><i class="fas fa-info-circle"></i></div>
+                                    <div class="stat-value">Info</div>
+                                </div>
+
+                                <div class="one-third no-border">
+                                    <div class="stat">7</div>
+                                    <div class="stat-value">Icon</div>
+                                </div>
+
+                            </div>
+
+                        </div> <!-- end character-card five-->
+                    </div> <!-- end wrapper -->
+
+                    <div class="wrapper">
+                        <div class="character-card six">
+                            <div class="character-card__image character-card__image--six">
+                                <img src="@assets.path("images/character-captain.svg")" alt="captain">
+                            </div>
+                            <div class="character-card__level character-card__level--four">Rank 6</div>
+                            <div class="character-card__unit-name">Captain</div>
+                            <div class="character-card__unit-description">
+                                <p>
+                                    Captain bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla.
+                                </p>
+                            </div>
+
+                            <div class="character-card__unit-stats character-card__unit-stats--one clearfix">
+                                <div class="one-third">
+                                    <div class="stat"><i class="fas fa-thumbs-up"></i></div>
+                                    <div class="stat-value">Moveable?</div>
+                                </div>
+
+                                <div class="one-third">
+                                    <div class="stat"><i class="fas fa-info-circle"></i></div>
+                                    <div class="stat-value">Info</div>
+                                </div>
+
+                                <div class="one-third no-border">
+                                    <div class="stat">6</div>
+                                    <div class="stat-value">Icon</div>
+                                </div>
+
+                            </div>
+                        </div> <!-- end character-card one-->
+                    </div> <!-- end wrapper -->
+
+                    <div class="wrapper">
+                        <div class="character-card seven">
+                            <div class="character-card__image character-card__image--seven">
+                                <img src="@assets.path("images/character-lieutenant.svg")" alt="lieutenant">
+                            </div>
+                            <div class="character-card__level character-card__level--four">Rank 5</div>
+                            <div class="character-card__unit-name">Lieutenant</div>
+                            <div class="character-card__unit-description">
+                                <p>
+                                    Lieutenant bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla.
+                                </p>
+                            </div>
+
+                            <div class="character-card__unit-stats character-card__unit-stats--one clearfix">
+                                <div class="one-third">
+                                    <div class="stat"><i class="fas fa-thumbs-up"></i></div>
+                                    <div class="stat-value">Moveable?</div>
+                                </div>
+
+                                <div class="one-third">
+                                    <div class="stat"><i class="fas fa-info-circle"></i></div>
+                                    <div class="stat-value">Info</div>
+                                </div>
+
+                                <div class="one-third no-border">
+                                    <div class="stat">5</div>
+                                    <div class="stat-value">Icon</div>
+                                </div>
+
+                            </div>
+                        </div> <!-- end character-card one-->
+                    </div> <!-- end wrapper -->
+
+                    <div class="wrapper">
+                        <div class="character-card eight">
+                            <div class="character-card__image character-card__image--eight">
+                                <img src="@assets.path("images/character-sergeant.svg")" alt="sergeant">
+                            </div>
+                            <div class="character-card__level character-card__level--four">Rank 4</div>
+                            <div class="character-card__unit-name">Sergeant</div>
+                            <div class="character-card__unit-description">
+                                <p>
+                                    Sergeant bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla.
+                                </p>
+                            </div>
+
+                            <div class="character-card__unit-stats character-card__unit-stats--one clearfix">
+                                <div class="one-third">
+                                    <div class="stat"><i class="fas fa-thumbs-up"></i></div>
+                                    <div class="stat-value">Moveable?</div>
+                                </div>
+
+                                <div class="one-third">
+                                    <div class="stat"><i class="fas fa-info-circle"></i></div>
+                                    <div class="stat-value">Info</div>
+                                </div>
+
+                                <div class="one-third no-border">
+                                    <div class="stat">4</div>
+                                    <div class="stat-value">Icon</div>
+                                </div>
+
+                            </div>
+                        </div> <!-- end character-card one-->
+                    </div> <!-- end wrapper -->
+
+                    <div class="wrapper">
+                        <div class="character-card nine">
+                            <div class="character-card__image character-card__image--nine">
+                                <img src="@assets.path("images/character-miner.svg")" alt="miner">
+                            </div>
+                            <div class="character-card__level character-card__level--four">Rank 3</div>
+                            <div class="character-card__unit-name">Miner</div>
+                            <div class="character-card__unit-description">
+                                <p>
+                                    Miner bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla.
+                                </p>
+                            </div>
+
+                            <div class="character-card__unit-stats character-card__unit-stats--one clearfix">
+                                <div class="one-third">
+                                    <div class="stat"><i class="fas fa-thumbs-up"></i></div>
+                                    <div class="stat-value">Moveable?</div>
+                                </div>
+
+                                <div class="one-third">
+                                    <div class="stat"><i class="fas fa-info-circle"></i></div>
+                                    <div class="stat-value">Info</div>
+                                </div>
+
+                                <div class="one-third no-border">
+                                    <div class="stat">3</div>
+                                    <div class="stat-value">Icon</div>
+                                </div>
+
+                            </div>
+                        </div> <!-- end character-card one-->
+                    </div> <!-- end wrapper -->
+
+                    <div class="wrapper">
+                        <div class="character-card ten">
+                            <div class="character-card__image character-card__image--ten">
+                                <img src="@assets.path("images/character-scout.svg")" alt="scout">
+                            </div>
+                            <div class="character-card__level character-card__level--four">Rank 2</div>
+                            <div class="character-card__unit-name">Scout</div>
+                            <div class="character-card__unit-description">
+                                <p>
+                                    Scout bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla.
+                                </p>
+                            </div>
+
+                            <div class="character-card__unit-stats character-card__unit-stats--one clearfix">
+                                <div class="one-third">
+                                    <div class="stat"><i class="fas fa-thumbs-up"></i></div>
+                                    <div class="stat-value">Moveable?</div>
+                                </div>
+
+                                <div class="one-third">
+                                    <div class="stat"><i class="fas fa-info-circle"></i></div>
+                                    <div class="stat-value">Info</div>
+                                </div>
+
+                                <div class="one-third no-border">
+                                    <div class="stat">2</div>
+                                    <div class="stat-value">Icon</div>
+                                </div>
+
+                            </div>
+                        </div> <!-- end character-card one-->
+                    </div> <!-- end wrapper -->
+
+                    <div class="wrapper">
+                        <div class="character-card eleven">
+                            <div class="character-card__image character-card__image--eleven">
+                                <img src="@assets.path("images/character-spy.svg")" alt="spy">
+                            </div>
+                            <div class="character-card__level character-card__level--four">Rank 1</div>
+                            <div class="character-card__unit-name">Spy</div>
+                            <div class="character-card__unit-description">
+                                <p>
+                                    Spy bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla.
+                                </p>
+                            </div>
+
+                            <div class="character-card__unit-stats character-card__unit-stats--one clearfix">
+                                <div class="one-third">
+                                    <div class="stat"><i class="fas fa-thumbs-up"></i></div>
+                                    <div class="stat-value">Moveable?</div>
+                                </div>
+
+                                <div class="one-third">
+                                    <div class="stat"><i class="fas fa-info-circle"></i></div>
+                                    <div class="stat-value">Info</div>
+                                </div>
+
+                                <div class="one-third no-border">
+                                    <div class="stat">1</div>
+                                    <div class="stat-value">Icon</div>
+                                </div>
+
+                            </div>
+                        </div> <!-- end character-card one-->
+                    </div> <!-- end wrapper -->
+
+                    <div class="wrapper">
+                        <div class="character-card twelve">
+                            <div class="character-card__image character-card__image--twelve">
+                                <img src="@assets.path("images/character-flag.svg")" alt="flag">
+                            </div>
+                            <div class="character-card__level character-card__level--four">Rank F</div>
+                            <div class="character-card__unit-name">Flag</div>
+                            <div class="character-card__unit-description">
+                                <p>
+                                    Flag bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla.
+                                </p>
+                            </div>
+
+                            <div class="character-card__unit-stats character-card__unit-stats--one clearfix">
+                                <div class="one-third">
+                                    <div class="stat"><i class="fas fa-thumbs-down"></i></div>
+                                    <div class="stat-value">Moveable?</div>
+                                </div>
+
+                                <div class="one-third">
+                                    <div class="stat"><i class="fas fa-info-circle"></i></div>
+                                    <div class="stat-value">Info</div>
+                                </div>
+
+                                <div class="one-third no-border">
+                                    <div class="stat">&#x1F3F3;</div>
+                                    <div class="stat-value">Icon</div>
+                                </div>
+
+                            </div>
+                        </div> <!-- end character-card one-->
+                    </div> <!-- end wrapper -->
+
+                </div> <!-- end container -->
+
+                <!-- ===== cdn ===== -->
+                <script @{CSPNonce.attr} type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+                <script @{CSPNonce.attr} type="text/javascript" src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js">
+                </script>
+                <script @{CSPNonce.attr} type="text/javascript" src="@assets.path("javascripts/slide.js")"></script>
+
+            </div>
+        </section>
+    </main>
+
+        <!-- ===== DEVELOPMENT ===== -->
+    <section class="development section" id="development">
+        <h2 class="section-title">Development</h2>
+
+        <div class="development__container bd-grid">
+            <p class="development__text">
+                Here are some tools and technologies we used for the development of this web game:
+            </p>
+            <div class="container-fluid padding">
+                <div class="row text-center padding">
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+                        <i class="fas fa-code"></i>
+                        <h3>HTML5</h3>
+                        <p class="development__description">Built with the latest version of HTML, HTML5.</p>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+                        <i class="fas fa-bold"></i>
+                        <h3>BOOTSTRAP</h3>
+                        <p class="development__description">Built with the latest version of Bootstrap, Bootstrap 4.</p>
+                    </div>
+                    <div class="col-sm-12 col-md-4">
+                        <i class="fab fa-css3"></i>
+                        <h3>CSS3</h3>
+                        <p class="development__description">Built with the latest version of CSS, CSS3.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <!-- Collapse -->
+    <button class="collapse__button" data-toggle="collapse" data-target="#playCollapse">And now click here and enter the world of Stratego!</button>
+    <div id="playCollapse" class="collapse">
+        <div class="container-fluid padding">
+            <div class="row text-center collapse__world">
+                <a href="@controllers.routes.StrategoController.matchfieldpage" class="button button__playCollapse">Play</a>
+            </div>
+        </div>
+    </div>
+
+        <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="footer__title"><img src="@assets.path("images/logo-rev.png")" alt="StrategoLogo"></div>
+
+        <div class="footer__social">
+            <a href="https://github.com/BenjaminMannsdoerfer/Stratego" target="_blank" class="footer__icon"><i class="fab fa-github"></i>Desktop-App</a>
+            <a href="https://github.com/WalterVoetschCortes/de.htwg.wt.StrategoInScala" target="_blank" class="footer__icon"><i class="fab fa-github"></i>Web-App</a>
+        </div>
+
+        <p>&#169; 2020 by Walter Voetsch Cortes and Axel Schwarz</p>
+    </footer>
+
+
+        <!-- ===== MENU JS ===== -->
+    <script @{CSPNonce.attr} src="@assets.path("javascripts/menu.js")"></script>
+}
